@@ -21,13 +21,15 @@ export default function ImageGallery({ property }: ImageGalleryProps) {
   return (
     <div className="space-y-4">
       <div className="relative aspect-[16/9] rounded-xl overflow-hidden">
-        <img
-          src={`${allImages[selectedImage].imgix_url}?w=1600&h=900&fit=crop&auto=format,compress`}
-          alt={property.metadata.title}
-          className="w-full h-full object-cover"
-          width={800}
-          height={450}
-        />
+        {allImages[selectedImage] && (
+          <img
+            src={`${allImages[selectedImage].imgix_url}?w=1600&h=900&fit=crop&auto=format,compress`}
+            alt={property.metadata.title}
+            className="w-full h-full object-cover"
+            width={800}
+            height={450}
+          />
+        )}
       </div>
       
       {allImages.length > 1 && (
