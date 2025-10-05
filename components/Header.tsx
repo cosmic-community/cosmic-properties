@@ -19,6 +19,13 @@ export default function Header() {
             >
               Properties
             </Link>
+            <Link 
+              href="/about" 
+              className="text-gray-700 hover:text-primary transition-colors font-medium"
+            >
+              About
+            </Link>
+          </nav>
           </nav>
         </div>
       </div>
