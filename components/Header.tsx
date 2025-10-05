@@ -26,7 +26,6 @@ export default function Header() {
               About
             </Link>
           </nav>
-          </nav>
         </div>
       </div>
     </header>
