@@ -98,7 +98,6 @@ export async function getPropertiesByHost(hostId: string) {
     throw new Error('Failed to fetch properties by host');
   }
   }
-}
 
 // Get user by email
 export async function getUserByEmail(email: string) {
