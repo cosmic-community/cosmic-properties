@@ -11,6 +11,7 @@ export interface SessionData {
   email: string;
   firstName: string;
   lastName: string;
+  [key: string]: any; // Index signature required for JWT payload compatibility
 }
 
 // Hash password
@@ -42,7 +43,18 @@ export async function createToken(data: SessionData): Promise<string> {
 export async function verifyToken(token: string): Promise<SessionData | null> {
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
-    return payload as SessionData;
+    
+    // Validate that payload has required SessionData properties
+    if (
+      typeof payload.userId === 'string' &&
+      typeof payload.email === 'string' &&
+      typeof payload.firstName === 'string' &&
+      typeof payload.lastName === 'string'
+    ) {
+      return payload as SessionData;
+    }
+    
+    return null;
   } catch (error) {
     return null;
   }
