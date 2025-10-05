@@ -1,6 +1,10 @@
 import Link from 'next/link'
+import { getSession } from '@/lib/auth'
+import UserMenu from './UserMenu'
 
-export default function Header() {
+export default async function Header() {
+  const session = await getSession()
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,6 +29,25 @@ export default function Header() {
             >
               About
             </Link>
+            
+            {session ? (
+              <UserMenu session={session} />
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Link 
+                  href="/login" 
+                  className="text-gray-700 hover:text-primary transition-colors font-medium"
+                >
+                  Log in
+                </Link>
+                <Link 
+                  href="/signup" 
+                  className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors font-medium"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
           </nav>
         </div>
       </div>

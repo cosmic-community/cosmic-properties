@@ -97,4 +97,49 @@ export async function getPropertiesByHost(hostId: string) {
     }
     throw new Error('Failed to fetch properties by host');
   }
+  }
+}
+
+// Get user by email
+export async function getUserByEmail(email: string) {
+  try {
+    const response = await cosmic.objects.findOne({
+      type: 'users',
+      'metadata.email': email
+    });
+    
+    return response.object;
+  } catch (error) {
+    if (hasStatus(error) && error.status === 404) {
+      return null;
+    }
+    throw new Error('Failed to fetch user');
+  }
+}
+
+// Create new user
+export async function createUser(userData: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  passwordHash: string;
+}) {
+  try {
+    const response = await cosmic.objects.insertOne({
+      title: `${userData.firstName} ${userData.lastName}`,
+      type: 'users',
+      status: 'published',
+      metadata: {
+        first_name: userData.firstName,
+        last_name: userData.lastName,
+        email: userData.email,
+        password_hash: userData.passwordHash,
+        member_since: new Date().toISOString().split('T')[0]
+      }
+    });
+    
+    return response.object;
+  } catch (error) {
+    throw new Error('Failed to create user');
+  }
 }

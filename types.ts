@@ -75,3 +75,45 @@ export interface PropertyFilters {
   amenities?: string[];
   location?: string;
 }
+
+// User interface
+export interface User extends CosmicObject {
+  type: 'users';
+  metadata: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    password_hash: string;
+    profile_photo?: {
+      url: string;
+      imgix_url: string;
+    };
+    phone?: string;
+    member_since: string;
+  };
+}
+
+// Auth types
+export interface SignupFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  message: string;
+  user?: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+}
